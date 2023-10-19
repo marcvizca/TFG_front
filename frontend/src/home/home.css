@@ -1,0 +1,23 @@
+
+  .answers-input {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .answer-option {
+    margin: 5px;
+  }
+
+  .question-container {
+    background-color: #EBF5EB; /* verde claro */
+    padding: 20px;
+    margin-left: 5px;
+    display: inline-block;
+  }
+
+  button {
+    float: left;
+  }
+  
+  
+  
