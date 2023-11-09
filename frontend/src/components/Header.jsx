@@ -1,50 +1,49 @@
-import React, { useEffect, useState } from "react";
-import './header.css'
+import React, { useState } from 'react';
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import Menu from './Menu'
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '../firebase.js';
-import SignOut from "../auth/Signout";
+import { MenuData } from './Menu';
+import './header.css';
+import { IconContext } from 'react-icons';
 
+function Header() {
+  const [sidebar, setSidebar] = useState(false);
 
-const Header = () => {
-    const [log, setLog] = useState(null);
+  const showSidebar = () => setSidebar(!sidebar);
 
-    useEffect(() => {
-        const logged = onAuthStateChanged(auth, async (user) => {
-            
-            if (user) {
-                setLog(user);
-            } else {
-                setLog(null);
-            }
-        });
-
-        return () => {
-            logged();
-        };
-    }, []);
-
-    return(
-        <>
-            {log && (
-            <ul className="nav">
-                <Menu />
-                <h1> Bienvenido {auth.currentUser.email} </h1>
-                <li>
-                    <Link to="/home"><button>Home</button></Link>
+  return (
+    <>
+      <IconContext.Provider value={{ color: '#000' }}>
+        <div className='header-container'>
+            <div className='header'>
+                <Link to='#' className='menu-bars'>
+                    <FaIcons.FaBars onClick={showSidebar} />
+                </Link>
+            </div>
+        
+        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+          <ul className='nav-menu-items' onClick={showSidebar}>
+            <li className='header-toggle'>
+              <Link to='#' className='menu-bars'>
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
+            {MenuData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
                 </li>
-                <br />
-                <li>
-                    <Link to="/prueva"><button>Pureva</button></Link>
-                </li>
-                <li>
-                    <SignOut  />
-                </li>
-            </ul>
-            )}
-        </>
-    );
-};
+              );
+            })}
+          </ul>
+        </nav>
+        </div>
+      </IconContext.Provider>
+    </>
+  );
+}
 
 export default Header;

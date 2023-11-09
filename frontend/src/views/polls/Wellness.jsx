@@ -1,38 +1,47 @@
 import React, { useState } from "react";
-import './home.css';
-import Axios from "axios";
+import { useNavigate, useParams } from 'react-router-dom';
+import './wellness.css';
+import { postWellness } from "../../controllers/services.controller";
+import { showNotification } from '../../components/showNotification';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function Home () {
   const [answers, setAnswers] = useState({});
   const [questionAnswers, setQuestionAnswers] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
+  const { teamId } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    postWellness();
+    postAnswers();
+    navigate(-1);
+    showNotification("Wellness answered succesfully");
   };
 
-  const postWellness = async () => {
-    const response = await Axios.post("http://localhost:8000/api/poll", {
-      user_id: "1",
-      team_id: "2",
-      date: "2023-11-10"
-    })
-    console.log("RESPONSE", response);
+  const postAnswers = async () => {
+    const response = await postWellness(userId, teamId, answers);
   }
 
   const nextQuestion = () => {
-    const currentAnswer = document.querySelector("input[name='" + questions[currentQuestion].id + "']:checked").value;
-    setQuestionAnswers([...questionAnswers, currentAnswer]);
-    clearSelection();
-    setCurrentQuestion(currentQuestion + 1);
+    const currentAnswer = document.querySelector("input[name='" + questions[currentQuestion].name + "']:checked");
+    if(currentAnswer) {
+      setQuestionAnswers([...questionAnswers, currentAnswer.value]);
+      clearSelection();
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      console.log("Selecciona una opcio"); //modificar per mostrar avis
+    }
   };
 
   const lastQuestion = () => {
-    const currentAnswer = document.querySelector("input[name='" + questions[currentQuestion].id + "']:checked").value;
-    setQuestionAnswers([...questionAnswers, currentAnswer]);
+    const currentAnswer = document.querySelector("input[name='" + questions[currentQuestion].name + "']:checked");
+    if(currentAnswer) {
+      setQuestionAnswers([...questionAnswers, currentAnswer.value]);
+    }
+    else console.log("selecciona una opcio"); //modificar per mostrar avis
   }
 
   const clearSelection = () => {
@@ -45,26 +54,31 @@ function Home () {
   const questions = [
         {
         id: 1,
+        name: "sleep",
         text: "¿CALIDAD DEL SUEÑO?",
         options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 2,
+            name: "fatigue",
             text: "FATIGA/CANSANACIO?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 3,
+            name: "pain",
             text: "¿DAÑO MUSCULAR GENERAL?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 4,
+            name: "stress",
             text: "¿PERCCEPCIÓN DE ESTRÉS?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 5,
+            name: "mood",
             text: "¿ESTADO DE ÁNIMO?",
             options: [...Array(7)].map((x, i) => (i + 1))
         }
@@ -88,7 +102,7 @@ function Home () {
                     <input
                     className='answer-option'
                     type="radio"
-                    name={question.id}
+                    name={question.name}
                     value={option}
                     onChange={handleChange}
                     />
@@ -107,29 +121,16 @@ function Home () {
         </div>
     )
   }
-
-  const ResultsPage = () => (
-    <div>
-        <h1>Resultados</h1>
-        <div>
-            {questionAnswers.map((answer, i) => (
-                <p>Pregunta {i+1}: {answer}</p>
-            ))}
-        </div>
-    </div>
-  );
-
   return (
     <>
-    {submitted ? (
-        <ResultsPage />
-    ) : (
+      <Container component="main" maxWidth="sm">
+      <CssBaseline />
         <form onSubmit={handleSubmit}>
             <h1>Questionario Wellness</h1>
                 {renderQuestions()}
             <br />
         </form>
-        )}
+      </Container>
     </>
   );
 };

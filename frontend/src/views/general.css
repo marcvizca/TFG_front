@@ -1,0 +1,25 @@
+.app-button {
+    background-color: orange !important;
+    box-shadow: none;
+    font-weight: bold;
+    color: white !important;
+}
+
+.create-button {
+    background-color: grey !important;
+    box-shadow: none;
+    font-weight: bold;
+    position: 'absolute';
+    bottom: 0;
+    right: 0;
+    padding: '20px';
+}
+
+.create-button-container {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
