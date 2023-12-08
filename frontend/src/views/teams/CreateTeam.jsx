@@ -14,6 +14,7 @@ import LogoSample from '../../assets/LogoSample.jpg';
 import { createTeam } from "../../controllers/services.controller";
 import './teams.css'
 import '../general.css'
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 const options = ["Football", "Field hockey", "Swimming", "Atheltism"];
 
@@ -23,6 +24,7 @@ function CreateTeam() {
     sport:'',
   });
   const navigate = useNavigate();
+  const defaultTheme = createTheme();
   const handleSubmit = () => {
     const userId = localStorage.getItem('userId')
     const response = createTeam(userId, teamData.team, teamData.sport);
@@ -37,8 +39,9 @@ function CreateTeam() {
     });
   };
 
-  const defaultTheme = createTheme();
   return (
+  <div>
+  <AiOutlineArrowLeft onClick={() => navigate(-1)} style={{ cursor: 'pointer', marginTop: '10px', marginLeft:'10px', fontSize: '24px' }} />
     <ThemeProvider theme={defaultTheme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -98,6 +101,7 @@ function CreateTeam() {
       </Box>
     </Container>
   </ThemeProvider>
+  </div>
   )
 }
 

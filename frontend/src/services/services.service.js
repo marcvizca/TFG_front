@@ -68,6 +68,18 @@ export const postTeam = async (userId, teamName, sport) => {
     return response;
 }
 
+export const postMemberPendent = async (teamId, userId, number, position) => {
+    const response = await axios.post("http://localhost:8000/api/team/join",
+    {teamId, userId, number, position}
+    );
+    return response;
+}
+
+export const getMembersPendents = async (teamId) => {
+    const response = await axios.get("http://localhost:8000/api/team/getMembersPendents/" + teamId);
+    return response;
+}
+
 //Members
 export const getTeamMember = async (userId, teamId) => {
     const response = await axios.get("http://localhost:8000/api/members", {
@@ -76,7 +88,19 @@ export const getTeamMember = async (userId, teamId) => {
         teamId: teamId
     }
     });
-    console.log("RESP:", response);
+    return response;
+}
+export const postMember = async (userId, teamId, number, position) => {
+    const response = await axios.post("http://localhost:8000/api/members/post",
+    {userId, teamId, number, position}
+    );
+    return response;
+}
+
+export const deleteMemberPendent = async (userId, teamId) => {
+    const response = await axios.delete("http://localhost:8000/api/members/denyjoin",
+    {userId, teamId}
+    );
     return response;
 }
 
@@ -92,5 +116,54 @@ export const postWellnessTest = async (userId, teamId, data) => {
     const response = await axios.post("http://localhost:8000/api/poll/wellness",
     {userId, teamId, data}
     );
+    return response;
+}
+
+export const getRpeInfo = async (teamId, date) => {
+    const response = await axios.get("http://localhost:8000/api/poll/getRpeInfo/" + teamId  + "/" + date);
+    return response;
+}
+
+export const getWellnessInfo = async (teamId, date) => {
+    const response = await axios.get("http://localhost:8000/api/poll/getWellnessInfo/" + teamId  + "/" + date);
+    return response;
+}
+
+export const getOneWeekRpe = async (userId, teamId, fromDate, toDate) => {
+    const response = await axios.get("http://localhost:8000/api/poll/getRpeByUser/" + userId  + "/" + teamId + "/" + fromDate  + "/" + toDate );
+    return response;
+}
+
+export const getOneWeekWellness = async (userId, teamId, fromDate, toDate) => {
+    const response = await axios.get("http://localhost:8000/api/poll/getWellnessByUser/" + userId  + "/" + teamId + "/" + fromDate  + "/" + toDate );
+    return response;
+}
+
+//Minuts
+export const postMinuts = async (teamId, date, minuts) => {
+    const response = await axios.post("http://localhost:8000/api/minuts/postminuts",
+    {teamId, date, minuts}
+    );
+    return response;
+}
+
+//Data
+export const getActualRatio3 = async (teamId) => {
+    const response = await axios.get("http://localhost:8000/api/data/getActualACWR3/" + teamId);
+    return response;
+}
+
+export const getLastWeekRatio4 = async (teamId) => {
+    const response = await axios.get("http://localhost:8000/api/data/getACWR4/" + teamId);
+    return response;
+}
+
+export const getMI = async (teamId) => {
+    const response = await axios.get("http://localhost:8000/api/data/getMI/" + teamId);
+    return response;
+}
+
+export const getLastWeekMI = async (teamId) => {
+    const response = await axios.get("http://localhost:8000/api/data/getMILastWeek/" + teamId);
     return response;
 }

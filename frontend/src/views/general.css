@@ -23,3 +23,35 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
+.data-button {
+    background-color: orange !important;
+    box-shadow: none;
+    font-weight: bold;
+    color: white !important;
+    height:100px;
+}
+
+.pendingMember_accept_button {
+    font-weight: bold !important;
+    margin-left:10px !important;
+    margin-right:10px !important;
+    border: 1px solid black !important;
+    background-Color: rgb(85, 249, 85) !important;
+    box-shadow: none;
+    height: 30px;
+    color: black !important;
+    text-transform: none !important;
+}
+
+.pendingMember_deny_button {
+    font-weight: bold !important;
+    margin-left:10px !important;
+    margin-right:10px !important;
+    border: 1px solid black !important;
+    background-Color: rgb(249, 82, 82) !important;
+    box-shadow: none;
+    height: 30px;
+    color: black !important;
+    text-transform: none !important;
+}

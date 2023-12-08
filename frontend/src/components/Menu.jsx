@@ -3,12 +3,6 @@ import * as AiIcons from 'react-icons/ai';
 
 export const MenuData = [
   {
-    title: 'Home',
-    path:'/home',
-    icon:<AiIcons.AiFillHome/>,
-    cName:'nav-text'
-  },
-  {
     title: 'Teams',
     path:'/teams',
     icon:<AiIcons.AiOutlineTeam/>,

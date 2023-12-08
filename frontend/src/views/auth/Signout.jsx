@@ -14,7 +14,6 @@ const SignOut = () => {
       try {
         setAuth({});
         const response = await logOutUser();
-        console.log(response);
         navigate("/");
         showNotification("Logout successful");
       } catch (error) {

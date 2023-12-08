@@ -9,6 +9,9 @@ import TeamsSelector from './views/teams/TeamsSelector.jsx';
 import Header from './components/Header.jsx';
 import Team from './views/teams/Team.jsx';
 import Rpe from './views/polls/Rpe.jsx';
+import TeamData from './views/teams/team/TeamData.jsx';
+import UserData from './views/teams/team/UserData.jsx';
+import JoinTeam from './views/teams/JoinTeam.jsx';
 import RequireAuth from './components/requireAuth.js';
 import PersistLogin from './views/auth/PersistLogin.js';
 
@@ -26,9 +29,12 @@ function App() {
           <Route element = { <RequireAuth /> } >
             <Route path='teams' exact element = {<TeamsSelector /> } />
             <Route path='createteam' exact element = { < CreateTeam /> } />
+            <Route path='jointeam' exact element = { <JoinTeam /> } />
             <Route path='team/:teamId' exact element = {<Team /> } />
             <Route path='team/:teamId/wellness' exact element = {<Wellness /> } />
             <Route path='team/:teamId/rpe' exact element = {<Rpe /> } />
+            <Route path='team/:teamId/data' exact element = {<TeamData /> } />
+            <Route path='team/:teamId/data/userData/:playerId' exact element = {<UserData /> } />
 
           </Route>
           </Route> 
