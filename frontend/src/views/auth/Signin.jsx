@@ -55,19 +55,22 @@ const Signin = () => {
 
         } catch (error) {
             if (!error?.response) {
-                setErrMsg('No Server Response');
+                showNotification('No Server Response', 'error');
             } else if (error.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (error.response?.status === 401) {
-                setErrMsg('Unauthorized');
+                showNotification('Falta algun camp per completar', 'error');
+            } else if (error.response?.status === 401 || error.response?.status === 404) {
+                showNotification('El email o password indicats són incorrectes', 'error');
             } else {
-                setErrMsg('Login Failed');
+                showNotification('Login Failed');
             }
         }
     }
 
     const handleSignUpClick = () => {
         navigate('/Signup');
+    }
+
+    const handleForgotPwd = () => {
     }
 
     const defaultTheme = createTheme();
@@ -111,6 +114,13 @@ const Signin = () => {
                     />
                     </Grid>
                 </Grid>
+                <a
+                    href='/recoverypwd'
+                    onClick={handleForgotPwd}
+                    className="forgot_pwd"
+                >
+                    Has oblidat la contrasenya?
+                </a>
                 <Button
                     type="submit"
                     fullWidth

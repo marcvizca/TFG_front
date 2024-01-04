@@ -1,4 +1,16 @@
-import { postUserAuthByEmail, getUserLoggedOut, getRefreshToken, postSignUp, getUserByIdTeams, getTeamName, postTeam, getTeamMember, postRpeTest, postWellnessTest, getRpeInfo, getWellnessInfo, postMinuts, getOneWeekRpe, getOneWeekWellness,getActualRatio3, getLastWeekRatio4, getMI, getLastWeekMI, postMemberPendent, getMembersPendents, postMember, deleteMemberPendent } from '../services/services.service.js'
+import { getUserInfo, updateUserProfile, postUserAuthByEmail, getUserLoggedOut, getRefreshToken, postSignUp, getUserByIdTeams, getTeamName, postTeam, getTeamMember, postRpeTest, postWellnessTest, getRpeInfo, getWellnessInfo, postMinuts, getOneWeekRpe, getOneWeekWellness,getActualRatio3, getLastWeekRatio4, getMI, getLastWeekMI, postMemberPendent, getMembersPendents, postMember, deleteMemberPendent, exitTeam, recoveryPwdFunc, changePassword } from '../services/services.service.js'
+
+
+//User
+export const getInfoProfile = async (id) => {
+    const { data } = await getUserInfo(id);
+    return data;
+}
+
+export const updateUser = async (name, surname, id) => {
+    const { data } = await updateUserProfile(name, surname, id);
+    return data;
+}
 
 //Login function
 export const postUserAuth = async (email, password) => {
@@ -12,10 +24,15 @@ export const logOutUser = async () => {
     return data;
 }
 
-//Sign up
+//Auth
 export const postNewUser = async (email, password, name, surname) => {
     const { data } = await postSignUp(email, password, name, surname);
     return data;
+}
+
+export const newPassword = async (email, password) => {
+    const { data } = await changePassword(email, password);
+    return data; 
 }
 
 //Refresh Token
@@ -68,6 +85,11 @@ export const denyMemberPendent = async (userId, teamId) => {
     return data;
 }
 
+export const exitTeamMember = async (userId, teamId) => {
+    const { data } = await exitTeam(userId, teamId);
+    return data;
+}
+
 //Polls
 export const postRpe = async(userId, teamId, rpe) => {
     const { data } = await postRpeTest(userId, teamId, rpe);
@@ -96,7 +118,6 @@ export const getRpeByUser = async (userId, teamId, fromDate, toDate) => {
 
 export const getWellnessByUser = async (userId, teamId, fromDate, toDate) => {
     const { data } = await getOneWeekWellness(userId, teamId, fromDate, toDate);
-    console.log(data);
     return data || [];
 }
 
@@ -125,4 +146,10 @@ export const getTeamMI = async (teamId) => {
 export const getTeamLastWeekMI = async (teamId) => {
     const { data } = await getLastWeekMI(teamId);
     return data || [];
+}
+
+//recovery
+export const postRecoveryPwd = async (email, otp) => {
+    const { data } = await recoveryPwdFunc(email, otp);
+    return data;
 }

@@ -1,7 +1,21 @@
 import axios from 'axios';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import {formatInTimeZone} from 'date-fns-tz'
+
 
 //User
+
+export const getUserInfo = async (id) => {
+    const response = await axios.get("http://localhost:8000/api/user/" + id);
+    return response;
+}
+
+export const updateUserProfile = async (name, surname, id) => {
+    const response = await axios.put("http://localhost:8000/api/user/" + id , 
+    {name, surname}
+    );
+    return response;
+}
 
 //Login function
 export const postUserAuthByEmail = async (email, password) => {
@@ -25,10 +39,17 @@ export const getUserLoggedOut = async () => {
     return response;
 }
 
-//SignUp
+//Auth
 export const postSignUp = async (email, password, name, surname) => {
     const response = await axios.post("http://localhost:8000/api/register",
     { email, password, name, surname }
+    );
+    return response;
+}
+
+export const changePassword = async (email, password) => {
+    const response = await axios.put("http://localhost:8000/api/changepassword",
+    {email, password}
     );
     return response;
 }
@@ -98,23 +119,40 @@ export const postMember = async (userId, teamId, number, position) => {
 }
 
 export const deleteMemberPendent = async (userId, teamId) => {
-    const response = await axios.delete("http://localhost:8000/api/members/denyjoin",
-    {userId, teamId}
-    );
+    const response = await axios.delete("http://localhost:8000/api/members/denyjoin", {
+        params: {
+            userId: userId,
+            teamId: teamId
+        }
+        });
+    return response;
+}
+
+export const exitTeam = async (userId, teamId) => {
+    const response = await axios.delete("http://localhost:8000/api/members/exitTeam", {
+        params: {
+            userId: userId,
+            teamId: teamId
+        }
+    });
     return response;
 }
 
 //polls
 export const postRpeTest = async (userId, teamId, rpe) => {
+    const date = formatInTimeZone(new Date(), 'Europe/Madrid', 'yyyy-MM-dd');
+    console.log(date);
     const response = await axios.post("http://localhost:8000/api/poll/rpe",
-    {userId, teamId, rpe}
+    {userId, teamId, date, rpe}
     );
     return response;
 }
 
 export const postWellnessTest = async (userId, teamId, data) => {
+    const date = formatInTimeZone(new Date(), 'Europe/Madrid', 'yyyy-MM-dd');
+    console.log(date);
     const response = await axios.post("http://localhost:8000/api/poll/wellness",
-    {userId, teamId, data}
+    {userId, teamId, date, data}
     );
     return response;
 }
@@ -167,3 +205,12 @@ export const getLastWeekMI = async (teamId) => {
     const response = await axios.get("http://localhost:8000/api/data/getMILastWeek/" + teamId);
     return response;
 }
+
+//recovery
+export const recoveryPwdFunc = async (email, otp) => {
+    const response = await axios.post("http://localhost:8000/api/recovery",
+    {email, otp}
+    );
+    return response;
+}
+

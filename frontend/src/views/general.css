@@ -1,7 +1,7 @@
 .app-button {
     background-color: orange !important;
-    box-shadow: none;
-    font-weight: bold;
+    box-shadow: none !important;
+    font-weight: bold !important;
     color: white !important;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .data-button {
-    background-color: orange !important;
+    background-color: rgb(255, 165, 0) !important;
     box-shadow: none;
     font-weight: bold;
     color: white !important;
@@ -54,4 +54,27 @@
     height: 30px;
     color: black !important;
     text-transform: none !important;
+}
+
+.exit_team_button {
+    border: 1px solid black !important;
+    background-Color: rgb(249, 82, 82) !important;
+    box-shadow: none;
+    color: black !important;
+}
+
+.exit_button_container {
+    position: fixed;
+    bottom: 30px;
+    left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.back_start_button {
+    background-color: lightgrey !important;
+    box-shadow: none !important;
+    font-weight: bold !important;
+    color: white !important;
 }

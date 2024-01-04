@@ -9,9 +9,24 @@ export const MenuData = [
     cName:'nav-text'
   },
   {
+    title: 'Profile',
+    path: '/profile',
+    icon:<AiIcons.AiOutlineProfile/>,
+    cName: 'nav-text'
+  },
+  {
     title: 'Log out',
     path:'/logout',
     icon:<AiIcons.AiOutlineLogout/>,
+    cName:'nav-text'
+  }
+]
+
+export const MenuData2 = [
+  {
+    title: 'Teams',
+    path:'/teams',
+    icon:<AiIcons.AiOutlineTeam/>,
     cName:'nav-text'
   }
 ]

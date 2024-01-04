@@ -25,9 +25,10 @@ function CreateTeam() {
   });
   const navigate = useNavigate();
   const defaultTheme = createTheme();
-  const handleSubmit = () => {
+  const handleSubmit = async(e) => {
+    e.preventDefault();
     const userId = localStorage.getItem('userId')
-    const response = createTeam(userId, teamData.team, teamData.sport);
+    const response = await createTeam(userId, teamData.team, teamData.sport);
     navigate('/teams');
   }
 

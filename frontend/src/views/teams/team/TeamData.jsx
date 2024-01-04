@@ -206,13 +206,13 @@ function TeamData() {
           {
             label: 'RPE',
             data: rpeInfo.map((item) => (item.rpe ? item.rpe[0] : null)),
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            backgroundColor: 'rgba(255, 165, 0, 0.8)',
           },
-          {
+          /*{
             label: 'RPE',
             data: rpeInfo.map((item) => (item.rpe && item.rpe.length > 1 ? Number(item.rpe.split(',')[1]): null)),
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
+          },*/
         ],
       };
 
@@ -283,23 +283,23 @@ function TeamData() {
         },
         {
           label: 'Sweet Spot',
-          data: Array(info.length).fill(1.3), // Valor de la línea horizontal
+          data: Array(info.length).fill(1.3),
           type: 'line',
           fill: false,
           borderColor: 'green',
           borderWidth: 2,
           pointRadius:0,
-          borderDash: [5, 5], // Patrón de línea punteada, opcional
+          borderDash: [5, 5],
         },
         {
           label: '',
-          data: Array(info.length).fill(0.8), // Valor de la línea horizontal
+          data: Array(info.length).fill(0.8),
           type: 'line',
           fill: false,
           borderColor: 'green',
           borderWidth: 2,
           pointRadius:0,
-          borderDash: [5, 5], // Patrón de línea punteada, opcional
+          borderDash: [5, 5],
         },
       ],
     }
@@ -402,31 +402,3 @@ function TeamData() {
 }
 
 export default TeamData;
-
-/*
-<div style={{flex: 1}}>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow>
-                <TableCell style={{fontWeight: 'bold'}}>Players</TableCell>
-                  <TableCell style={{fontWeight: 'bold'}} align="center">RPE 1</TableCell>
-                  <TableCell style={{fontWeight: 'bold'}} align="center">RPE 2</TableCell>
-                </TableRow>
-              </TableHead>
-            <TableBody>
-            {rpeInfo.map ((info) => (
-                    <TableRow
-                      key={info.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell component="th" scope="row">{info.name} {info.surname}</TableCell>
-                        <TableCell align="center">{(info.rpe ? info.rpe[0] : null)}</TableCell>
-                        <TableCell align="center">{(info.rpe && info.rpe.length > 1 ? Number(info.rpe.split(',')[1]): null)}</TableCell>
-                    </TableRow>
-            ))}
-            </TableBody>
-            </Table>
-          </TableContainer>
-          </div>
-          */

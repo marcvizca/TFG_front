@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import { format, subDays, startOfWeek, endOfWeek, subWeeks } from 'date-fns';
-import { getRpeByUser, getWellnessByUser } from "../../../controllers/services.controller.js";
+import { getRpeByUser, getWellnessByUser, exitTeamMember } from "../../../controllers/services.controller.js";
 import { Bar } from 'react-chartjs-2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { showNotification } from '../../../components/showNotification';
 
 
 function UserData() {
@@ -14,6 +21,7 @@ function UserData() {
     const { teamId, playerId } = useParams();
     const [rpeInfo, setRpeInfo] = useState();
     const [wellnessInfo, setWellnessInfo] = useState();
+    const [openDialog, setOpenDialog] = useState(false);
     const navigate = useNavigate();
 
     //Week RPE
@@ -40,6 +48,20 @@ function UserData() {
     const handleWellnessDateChange = (event) => {
         setSelectedDateWellness(event.target.value.split(','));
     };
+
+    const handleOpenDialog = () => {
+      setOpenDialog(true);
+  };
+  
+  const handleCloseDialog = () => {
+      setOpenDialog(false);
+  };
+  const handleAcceptDialog = async() => {
+      const response = await exitTeamMember(playerId, teamId);
+      showNotification("El jugador ha estat expulsat de l'equip");
+      setOpenDialog(false);
+      navigate(-1);
+  }
 
     const labels = ['Lunes', 'Martes' ,'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -113,7 +135,7 @@ function UserData() {
           {
             label: 'RPE',
             data: promedioRPEPorDia,
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            backgroundColor: 'rgba(255, 165, 0, 0.8)',
           }
         ]
     };
@@ -257,6 +279,26 @@ function UserData() {
                     </div>
                 </div>
                 </div>
+
+                <div className="exit_button_container">
+                    <Button className="exit_team_button" onClick={handleOpenDialog}>
+                        Expulsar de l'equip
+                    </Button>
+                </div>
+                <Dialog open={openDialog} onClose={handleCloseDialog}>
+                    <DialogTitle>Expulsar jugador del equip</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Segur que vols expulsar el jugador del equip?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog}>Cancelar</Button>
+                        <Button onClick={handleAcceptDialog} color="primary">
+                            Confirmar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
     )
 }

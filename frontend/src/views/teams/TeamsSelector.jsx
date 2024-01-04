@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom" ;
+import { Link, useLocation, useNavigate} from "react-router-dom" ;
 import Button from '@mui/material/Button';
 import useAuth from '../../hooks/useAuth.js';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,32 +21,43 @@ function Teams () {
 
     const [teams, setTeams] = useState({});
     const { auth } = useAuth();
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect( () => {
         const getTeams = async() => {
             const response = await getUserTeams(auth.userId);
-            const userTeams = await Promise.all(
-                response.map(async (item) =>  {
-                    const teamId = item.team_id;
-                    const resp = await getTeamById(teamId);
-                    const teamName = resp.name;
 
-                    return {
-                        teamId: teamId,
-                        teamName: teamName
-                    };
-                })
-                );
-            setTeams(userTeams);
+            if (response.message) {
+              setTeams([]);
+            }
+            else {
+              const userTeams = await Promise.all(
+                  response.map(async (item) =>  {
+                      const teamId = item.team_id;
+                      const resp = await getTeamById(teamId);
+                      const teamName = resp.name;
+
+                      return {
+                          teamId: teamId,
+                          teamName: teamName
+                      };
+                  })
+                  );
+              setTeams(userTeams);
+            }
+            setLoading(false);
         };
         getTeams();
-    }, [])
+    }, [location.key])
 
     return (
     <Container component="main" maxWidth="xs">
     <CssBaseline />
     <Grid container spacing={2}>
-    {teams.length > 0 ? (
+    {loading ? (<p> Loading...</p>
+    ) : teams.length > 0 ? (
     teams.map((team, index) =>  (
       <Grid item xs={6} key={index}>
         <Link to={`/team/${team.teamId}`}>
@@ -62,7 +73,7 @@ function Teams () {
       </Grid>
     ))
     ) : (
-        <p> Loading...</p>
+        <p style={{justifyContent:'center', marginTop:'80px'}}>No formas parte de ningún equipo.</p>
     )} 
     </Grid>
     <div className="create-button-container">

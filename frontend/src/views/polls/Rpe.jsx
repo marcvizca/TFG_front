@@ -26,9 +26,7 @@ function Home () {
   const options = [...Array(10)].map((x, i) => (i + 1));
 
   const postResult = async () => {
-    console.log("user:", userId, "team:", teamId);
     const response = await postRpe(userId, teamId, rpe);
-    console.log("RESPONSE", response);
   }
 
   const handleChange = (e) => {

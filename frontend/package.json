@@ -23,6 +23,7 @@
     "date-fns-tz": "^2.0.0",
     "faker": "^6.6.6",
     "firebase": "^9.17.2",
+    "luxon": "^3.4.4",
     "react": "^18.2.0",
     "react-auth-kit": "^3.0.0-alpha.22",
     "react-bootstrap": "^2.7.2",

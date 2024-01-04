@@ -16,6 +16,7 @@ import { width } from "@mui/system";
 import { joinTeam } from "../../controllers/services.controller";
 import { showNotification } from '../../components/showNotification'
 
+const options = ["Porter", "Defensa", "Mig", "Davanter", "Base", "Escorta", "Aler", "Aler-pivot", "Pivot", "Nadador", "Atleta"]
 function JoinTeam() {
     const navigate = useNavigate();
     const defaultTheme = createTheme();
@@ -82,6 +83,7 @@ function JoinTeam() {
                     </Grid>
                     <div>
                     <Grid item sm={12}>
+                        <Grid >
                         <TextField
                             required
                             id="player_number"
@@ -90,17 +92,27 @@ function JoinTeam() {
                             name="player_number"
                             value={playerNumber}
                             onChange={handleChangeNumber}
-                            sx={{mt: 2, mb: 2, width:180}}
+                            //sx={{mt: 2, mb: 2, width:180}}
                         />
-                        <TextField
+                        </Grid>
+                        <Grid>
+                        <InputLabel htmlFor="sport">Posició</InputLabel>
+                        <Select
                             required
-                            id="player_position"
-                            label="Position"
-                            name="player_position"
+                            fullWidth
+                            name="posicio"
+                            label="posicio"
+                            id="posicio"
                             value={playerPosition}
                             onChange={handleChangePosition}
                             sx={{mt: 2, mb: 2, ml:5, width:180}}
-                        />
+                        >
+                            {options.map((option, index) => (
+                                <MenuItem key={index} value={option}> { option } </MenuItem>
+                            ))}
+                        </Select>
+                        </Grid>
+                        
                     </Grid>
                     </div>
                 </div>
