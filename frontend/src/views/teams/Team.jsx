@@ -50,7 +50,7 @@ function Team() {
             }
         }
 
-        const getUserPollsInfo = async () => {
+        const getUserPollsInfoRpe = async () => {
             try {
                 const from = format(subWeeks(new Date(), 1), 'yyyy-MM-dd');
                 const to = format(new Date(), 'yyyy-MM-dd')
@@ -62,16 +62,27 @@ function Team() {
                 if(lastRpe === todayRpe) {
                     setRpeDone(true);
                 }
+            } catch (error) {
+                
+            }
+        }
+
+        const getUserPollsInfoWellness = async () => {
+            try {
+                const from = format(subWeeks(new Date(), 1), 'yyyy-MM-dd');
+                const to = format(new Date(), 'yyyy-MM-dd')
                 const resultWellness = await getWellnessByUser(auth.userId, teamId, from, to);
+                console.log(resultWellness);
                 setWellnessInfo(resultWellness);
                 let lastWellnes = resultWellness[resultWellness.length -1].date;
                 lastWellnes = lastWellnes.split('T')[0];
-                const todayWellness = format(new Date(), 'yyyy-MM-dd');
+                const todayWellness = format((new Date()), 'yyyy-MM-dd');
                 if(lastWellnes === todayWellness) {
+                    console.log("ENTRA IF")
                     setWellnessDone(true);
                 }
             } catch (error) {
-                console.log(error);
+                
             }
         }
 
@@ -85,7 +96,8 @@ function Team() {
                     await getMembersPendents();
                 }
                 else {
-                    await getUserPollsInfo();
+                    await getUserPollsInfoRpe();
+                    await getUserPollsInfoWellness();
                 }
                 setLoading(true);
             } catch(error) {
@@ -128,7 +140,8 @@ function Team() {
         await setSelectedDate(newDate);
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (selectedDate) {
             if (minuts) {
                 try {

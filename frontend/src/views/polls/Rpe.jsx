@@ -6,6 +6,8 @@ import { showNotification } from '../../components/showNotification';
 import { postRpe } from "../../controllers/services.controller";
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
+import escalaRPE from '../../assets/Escala_rpe.png';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Home () {
   const [rpe, setRpe] = useState();
@@ -14,13 +16,13 @@ function Home () {
   const { teamId } = useParams();
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     if (rpe) {
-        e.preventDefault();
         await postResult();
         navigate(-1);
         showNotification("RPE aswered succesfully");
     }
-    else console.log("Selecciona una opció"); //modificar per mostrar avis o no deixar clicar
+    else showNotification("Selecciona una opció", "error"); //modificar per mostrar avis o no deixar clicar
   };
 
   const options = [...Array(10)].map((x, i) => (i + 1));
@@ -36,13 +38,15 @@ function Home () {
 
   return (
     <>
+    <AiOutlineArrowLeft onClick={() => navigate(-1)} style={{ cursor: 'pointer', marginTop: '10px', marginLeft:'10px', fontSize: '24px' }} />
     <Container component="main" maxWidth="sm">
     <CssBaseline />
         <form onSubmit={handleSubmit}>
-            <h1>Questionario RPE</h1>
+            <h1>Qüestionari RPE</h1>
             <div className='question-container'>
-                <label>Fatiga Entrenamiento</label>
-                <div className='answers-input'>
+                <label style={{fontWeight:'bold'}}>Fatiga en la sessió entrenament</label>
+                <div className='rpe-test'>
+                  <div className='answers-input-rpe'>
                     {options.map(option => (
                     <div key={option}>
                     <input
@@ -56,6 +60,10 @@ function Home () {
                 
                     </div>
                     ))}
+                    </div>
+                    <div style={{marginTop: '10px'}}>
+                      <img src={escalaRPE} alt="escala_rpe"/>
+                    </div>
                 </div>
                 <Button type='submit' className="app-button" sx={{ mt: 3, mb: 2 }}>Enviar</Button>
             </div>

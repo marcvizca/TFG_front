@@ -15,6 +15,7 @@ import { createTeam } from "../../controllers/services.controller";
 import './teams.css'
 import '../general.css'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { showNotification } from "../../components/showNotification";
 
 const options = ["Football", "Field hockey", "Swimming", "Atheltism"];
 
@@ -27,9 +28,15 @@ function CreateTeam() {
   const defaultTheme = createTheme();
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const userId = localStorage.getItem('userId')
-    const response = await createTeam(userId, teamData.team, teamData.sport);
-    navigate('/teams');
+    if (teamData.team && teamData.sport) {
+      const userId = localStorage.getItem('userId');
+      try {
+      const response = await createTeam(userId, teamData.team, teamData.sport);
+      navigate('/teams');
+      } catch (error) {
+        showNotification("S'ha produit algun error", "error");
+      }
+    } else showNotification("Falten dates per emplenar", "error")
   }
 
   const handleChange = (e) => {

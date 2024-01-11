@@ -70,3 +70,8 @@
 span {
   margin-left: 16px;
 }
+
+.header-container {
+  position:relative;
+  z-index: 100;
+}

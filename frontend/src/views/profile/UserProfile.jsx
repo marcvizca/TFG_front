@@ -53,15 +53,34 @@ function UserProfile() {
             setEdit(false);
         }
         else if (editedName === userName) {
-            setEditedName('');
-            await updateUser('', editedSurname, auth.userId);
+            if (editedSurname !== '') {
+                setEditedName('');
+                await updateUser('', editedSurname, auth.userId);
+                setEdit(false);
+                window.location.reload();
+            } else {
+                showNotification("No pots deixar el camp 'Cognom buit", "error");
+            }
         }
         else if (editedSurname === userSurname) {
-            setEditedSurname('');
-            await updateUser(editedName, '', auth.userId);
+            if (editedName !== '') {
+                setEditedSurname('');
+                await updateUser(editedName, '', auth.userId);
+                setEdit(false);
+                window.location.reload();
+            } else showNotification("No pots deixar el camp 'Nom' buit", "error");
         }
-        setEdit(false);
-        window.location.reload();
+        else {
+            if (editedSurname !== '' || editedName !== '') {
+                if (editedSurname !== '') {
+                    if (editedName !== '') {
+                        await updateUser(editedName, editedSurname, auth.userId);
+                        setEdit(false);
+                        window.location.reload();
+                    } else showNotification("No pots deixar el camp 'Nom' buit", "error");
+                } else showNotification("No pots deixar el camp 'Cognom' buit", "error");
+            } else showNotification("No pots deixar els camps 'Nom' i 'Cognom' buits", "error");
+        }
     }
 
     const handleCancelEditClick = (() => {

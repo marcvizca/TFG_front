@@ -5,6 +5,10 @@ import { postWellness } from "../../controllers/services.controller";
 import { showNotification } from '../../components/showNotification';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
+import EscalaWellness1 from '../../assets/Escala_wellness_1.png';
+import EscalaWellness2 from '../../assets/Escala_wellness_2.png';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Home () {
   const [answers, setAnswers] = useState({});
@@ -14,11 +18,15 @@ function Home () {
   const userId = localStorage.getItem('userId');
   const { teamId } = useParams();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    postAnswers();
-    navigate(-1);
-    showNotification("Wellness answered succesfully");
+    const currentAnswer = document.querySelector("input[name='" + questions[currentQuestion].name + "']:checked");
+    if(currentAnswer) {
+      await postAnswers();
+      navigate(-1);
+      showNotification("Wellness answered succesfully");
+    }
+    else showNotification("Selecciona una opció", "error");
   };
 
   const postAnswers = async () => {
@@ -32,7 +40,7 @@ function Home () {
       clearSelection();
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      console.log("Selecciona una opcio"); //modificar per mostrar avis
+      showNotification("Selecciona una opció", "error");
     }
   };
 
@@ -41,7 +49,6 @@ function Home () {
     if(currentAnswer) {
       setQuestionAnswers([...questionAnswers, currentAnswer.value]);
     }
-    else console.log("selecciona una opcio"); //modificar per mostrar avis
   }
 
   const clearSelection = () => {
@@ -55,31 +62,31 @@ function Home () {
         {
         id: 1,
         name: "sleep",
-        text: "¿CALIDAD DEL SUEÑO?",
+        text: "Com has dormit?",
         options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 2,
             name: "fatigue",
-            text: "FATIGA/CANSANACIO?",
+            text: "Fatiga/cansament?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 3,
             name: "pain",
-            text: "¿DAÑO MUSCULAR GENERAL?",
+            text: "Dolor muscular general?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 4,
             name: "stress",
-            text: "¿PERCCEPCIÓN DE ESTRÉS?",
+            text: "Percepció d'estrès?",
             options: [...Array(7)].map((x, i) => (i + 1))
         },
         {
             id: 5,
             name: "mood",
-            text: "¿ESTADO DE ÁNIMO?",
+            text: "Estat d'ànim?",
             options: [...Array(7)].map((x, i) => (i + 1))
         }
   ]
@@ -95,8 +102,9 @@ function Home () {
     return (
         
             <div className='question-container'>
-            <label>{question.text}</label>
-            <div className='answers-input'>
+            <label style={{fontWeight: 'bold'}}>{question.text}</label>
+            <div className='rpe-test'>
+              <div className='answers-input'>
                 {question.options.map(option => (
                 <div key={option}>
                     <input
@@ -109,13 +117,17 @@ function Home () {
                     <label>{option}</label>
                 </div>
                 ))}
+                </div>
+                <div>
+                  {question.id === 1 || question.id === 5 ? <img src={EscalaWellness1} alt="escala_wellnes1"/> : <img src={EscalaWellness2} alt="escala_wellnes2"/>}
+                </div>
             </div>
             
             {currentQuestion !== questions.length - 1  ? (
-                <button type='button' onClick={() => {nextQuestion()}}>Siguiente</button>
+                <Button className="app-button" type='button' onClick={() => {nextQuestion()}}>Següent</Button>
             ) : (
                 <div>
-                <button type='submit' onClick={() => lastQuestion()}>Enviar</button>
+                <Button className="app-button" type='submit' onClick={() => lastQuestion()}>Enviar</Button>
                 </div>
             )}
         </div>
@@ -123,10 +135,11 @@ function Home () {
   }
   return (
     <>
+    <AiOutlineArrowLeft onClick={() => navigate(-1)} style={{ cursor: 'pointer', marginTop: '10px', marginLeft:'10px', fontSize: '24px' }} />
       <Container component="main" maxWidth="sm">
       <CssBaseline />
         <form onSubmit={handleSubmit}>
-            <h1>Questionario Wellness</h1>
+            <h1>Qüestionari Wellness</h1>
                 {renderQuestions()}
             <br />
         </form>

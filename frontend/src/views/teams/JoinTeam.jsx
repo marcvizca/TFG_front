@@ -22,20 +22,27 @@ function JoinTeam() {
     const defaultTheme = createTheme();
     const [teamCode, setTeamCode] = useState();
     const [playerNumber, setPlayerNumber] = useState();
-    const [playerPosition, setPlayerPosition] = useState();
+    const [playerPosition, setPlayerPosition] = useState('');
     const userId = localStorage.getItem('userId');
 
     const handleSubmit = async (e) => {
-        if (teamCode) {
-            if (playerNumber && playerNumber >= 0) {
-                if (playerPosition) {
-                    e.preventDefault();
-                    const result = await joinTeam(teamCode, userId, playerNumber, playerPosition);
-                    showNotification(result.message); //gestionar el mostrar errors que provenen de la DB.
-                    navigate('/teams');
-                } else showNotification("Enter a valid position", "error");
-            } else showNotification("Enter a valid number", "error");
-        } else showNotification("Enter a valid code", "error");
+        e.preventDefault();
+            if (teamCode) {
+                if (playerNumber && playerNumber >= 0) {
+                    if (playerPosition && playerPosition !== '') {
+                        try{
+                            e.preventDefault();
+                            const result = await joinTeam(teamCode, userId, playerNumber, playerPosition);
+                            showNotification(result.message);
+                            navigate('/teams');
+                        } catch (error) {
+                            if (error.response && error.response.status === 404) showNotification("No existeix cap equip amb el codi indicat", "error")
+                            else showNotification("S'ha produit algun error", "error");
+                        }
+                    } else showNotification("Enter a valid position", "error");
+                } else showNotification("Enter a valid number", "error");
+            } else showNotification("Enter a valid code", "error");
+        
       };
 
     const handleChangeCode = (e) => {
@@ -70,38 +77,38 @@ function JoinTeam() {
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <div style={{display: 'flex', flexDirection:'column', gap: '20px', alignItems: 'center', marginTop: '20px'}}>
-                    <Grid item sm={12}>
+                    
                         <TextField
                             required
                             id="team_code"
-                            label="Insert the Team Code"
+                            label="Introdueix el codi d'equip"
                             name="team_code"
                             value={teamCode}
                             onChange={handleChangeCode}
                             sx={{width:400}}
                         />
-                    </Grid>
-                    <div>
-                    <Grid item sm={12}>
-                        <Grid >
+                    
+                    <div style={{display: 'flex', flexDirection: 'row'}}>
+                        <div>
+                        <InputLabel htmlFor="sport">Dorsal</InputLabel>
                         <TextField
                             required
                             id="player_number"
                             type="number"
-                            label="Team Number"
+                            label="Dorsal"
                             name="player_number"
                             value={playerNumber}
                             onChange={handleChangeNumber}
-                            //sx={{mt: 2, mb: 2, width:180}}
+                            sx={{mt: 2, mb: 2, width:180}}
                         />
-                        </Grid>
-                        <Grid>
-                        <InputLabel htmlFor="sport">Posició</InputLabel>
+                        </div>
+                        <div>
+                        <InputLabel sx={{ml:5}} htmlFor="sport">Posició</InputLabel>
                         <Select
                             required
                             fullWidth
                             name="posicio"
-                            label="posicio"
+                            label="Posicio"
                             id="posicio"
                             value={playerPosition}
                             onChange={handleChangePosition}
@@ -111,9 +118,8 @@ function JoinTeam() {
                                 <MenuItem key={index} value={option}> { option } </MenuItem>
                             ))}
                         </Select>
-                        </Grid>
-                        
-                    </Grid>
+                        </div>
+                    
                     </div>
                 </div>
                 <Button
