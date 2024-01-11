@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {signOut} from 'firebase/auth'
-import { auth } from '../../firebase.js';
+//import {signOut} from 'firebase/auth'
+//import { auth } from '../../firebase.js';
 import {useNavigate } from 'react-router-dom';
 import { showNotification } from '../../components/showNotification'
 import { logOutUser } from '../../controllers/services.controller.js';
@@ -26,7 +26,8 @@ const SignOut = () => {
   }, []);
 
     const handleLogout = () => {
-        auth.signOut()
+        //auth.signOut()
+        setAuth({})
           .then(() => {
             console.log("Logout successful");
             navigate("/" );
