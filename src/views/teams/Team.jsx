@@ -27,7 +27,7 @@ function Team() {
     const [isTrainer, setIsTrainer] = useState(false);
     const { teamId } = useParams();
     const [selectedDate, setSelectedDate] = useState(null);
-    const [minuts, setMinuts] = useState(undefined);
+    const [minuts, setMinuts] = useState('');
     const [membersPendents, setMembersPendents] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [authorized, setAuthorized] = useState();
@@ -108,14 +108,6 @@ function Team() {
             }
         };
         getUserInfo();
-
-
-
-        const storedNotification = localStorage.getItem('NOTIFICATION');
-        if (storedNotification) {
-            showNotification('Minuts registrats correctament!');
-            localStorage.removeItem('NOTIFICATION')
-        }
     }, []);
 
     const handleGoBack = () => {
@@ -145,12 +137,12 @@ function Team() {
         if (selectedDate) {
             if (minuts) {
                 try {
-                    //Comprovar que els minuts siguin positius i majors de 0
                     if (minuts > 0) {
                         const dateFormated = format(new Date(selectedDate), 'yyyy-MM-dd');
                         const response = await registerMinuts(teamId, dateFormated, minuts);
-                        localStorage.setItem('NOTIFICATION', JSON.stringify(response.success));
-                        window.location.reload();
+                        setSelectedDate(null);
+                        setMinuts('');
+                        showNotification('Minuts registrats correctament!');
                     }
                     else showNotification('Els minuts registrats han de ser un nombre positiu', 'error')
                 } catch (error) {

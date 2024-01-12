@@ -54,29 +54,36 @@ function UserProfile() {
         }
         else if (editedName === userName) {
             if (editedSurname !== '') {
+                try{
                 setEditedName('');
                 await updateUser('', editedSurname, auth.userId);
+                setUserSurname(editedSurname);
                 setEdit(false);
-                window.location.reload();
+                } catch (error) { showNotification("Error", "error"); }
             } else {
                 showNotification("No pots deixar el camp 'Cognom buit", "error");
             }
         }
         else if (editedSurname === userSurname) {
             if (editedName !== '') {
-                setEditedSurname('');
-                await updateUser(editedName, '', auth.userId);
-                setEdit(false);
-                window.location.reload();
+                try{
+                    setEditedSurname('');
+                    await updateUser(editedName, '', auth.userId);
+                    setUserName(editedName);
+                    setEdit(false);
+                } catch (error) { showNotification("Error", "error"); }
             } else showNotification("No pots deixar el camp 'Nom' buit", "error");
         }
         else {
             if (editedSurname !== '' || editedName !== '') {
                 if (editedSurname !== '') {
                     if (editedName !== '') {
-                        await updateUser(editedName, editedSurname, auth.userId);
-                        setEdit(false);
-                        window.location.reload();
+                        try {
+                            await updateUser(editedName, editedSurname, auth.userId);
+                            setUserSurname(editedSurname);
+                            setUserName(editedName);
+                            setEdit(false);
+                        } catch (error) { showNotification("Error", "error"); }
                     } else showNotification("No pots deixar el camp 'Nom' buit", "error");
                 } else showNotification("No pots deixar el camp 'Cognom' buit", "error");
             } else showNotification("No pots deixar els camps 'Nom' i 'Cognom' buits", "error");
