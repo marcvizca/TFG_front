@@ -46,7 +46,7 @@ function Team() {
                 const response = await getMembersJoining(teamId);
                 setMembersPendents(response);
             } catch (error) {
-                console.log(error);
+                showNotification("S'ha produit algun error al sistema", "error");
             }
         }
 
@@ -72,13 +72,11 @@ function Team() {
                 const from = format(subWeeks(new Date(), 1), 'yyyy-MM-dd');
                 const to = format(new Date(), 'yyyy-MM-dd')
                 const resultWellness = await getWellnessByUser(auth.userId, teamId, from, to);
-                console.log(resultWellness);
                 setWellnessInfo(resultWellness);
                 let lastWellnes = resultWellness[resultWellness.length -1].date;
                 lastWellnes = lastWellnes.split('T')[0];
                 const todayWellness = format((new Date()), 'yyyy-MM-dd');
                 if(lastWellnes === todayWellness) {
-                    console.log("ENTRA IF")
                     setWellnessDone(true);
                 }
             } catch (error) {

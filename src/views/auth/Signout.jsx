@@ -15,7 +15,7 @@ const SignOut = () => {
         setAuth({});
         const response = await logOutUser();
         navigate("/");
-        showNotification("Logout successful");
+        showNotification("Has tancat la sessió correctament");
       } catch (error) {
 
       }
@@ -29,13 +29,11 @@ const SignOut = () => {
         //auth.signOut()
         setAuth({})
           .then(() => {
-            console.log("Logout successful");
             navigate("/" );
-            showNotification("Logout successful");
+            showNotification("Has tancat la sessió correctament");
           })
           .catch((error) => {
-            console.log("Logout error:", error);
-            showNotification("Algo salió mal", "error");
+            showNotification("Algo ha anat malament", "error");
           });
     };
 

@@ -25,7 +25,6 @@ const InsertOtp = (props) => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(otp, otpInput);
         if (otpInput === otp) {
             navigate('/newpassword');
         }

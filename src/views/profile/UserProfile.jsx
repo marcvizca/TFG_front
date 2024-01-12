@@ -35,7 +35,7 @@ function UserProfile() {
                 setUserName(response.name);
                 setUserSurname(response.surname);
             } catch (error) {
-                console.log(error);
+                showNotification("S'ha produit un error al sistema", "error");
             }
         }
 

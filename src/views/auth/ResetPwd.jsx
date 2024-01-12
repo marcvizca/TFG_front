@@ -34,7 +34,7 @@ function ResetPwd() {
                 showNotification(response.message);
                 navigate('/');
             } catch (error) {
-                console.log(error);
+                showNotification("Algo ha anat malament", "error");
             }
         }
         else {

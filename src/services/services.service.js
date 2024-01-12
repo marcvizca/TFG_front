@@ -141,7 +141,6 @@ export const exitTeam = async (userId, teamId) => {
 //polls
 export const postRpeTest = async (userId, teamId, rpe) => {
     const date = formatInTimeZone(new Date(), 'Europe/Madrid', 'yyyy-MM-dd');
-    console.log(date);
     const response = await axios.post(process.env.REACT_APP_BASE_URL + "/api/poll/rpe",
     {userId, teamId, date, rpe}, { withCredentials: true }
     );
@@ -150,7 +149,6 @@ export const postRpeTest = async (userId, teamId, rpe) => {
 
 export const postWellnessTest = async (userId, teamId, data) => {
     const date = formatInTimeZone(new Date(), 'Europe/Madrid', 'yyyy-MM-dd');
-    console.log(date);
     const response = await axios.post(process.env.REACT_APP_BASE_URL + "/api/poll/wellness",
     {userId, teamId, date, data}, { withCredentials: true }
     );

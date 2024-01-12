@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogoMain from '../../assets/LogoMain.jpg'
 import '../general.css'
 import { postNewUser } from "../../controllers/services.controller";
+import { showNotification } from "../../components/showNotification";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Signup = () => {
         const response = await postNewUser(userData.email, userData.password, userData.name, userData.surname);
         navigate("/");
       } catch (error) {
-        console.log(error);
+        showNotification("Algo ha anat malament", "error")
       }
     }
 

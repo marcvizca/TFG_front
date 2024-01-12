@@ -7,9 +7,6 @@ const useRefreshToken = () => {
     const refresh = async () => {
         const response = await refreshToken();
         setAuth(prev => {
-            console.log(JSON.stringify(prev));
-            console.log(response);
-            console.log("PREV", prev);
             const userId = localStorage.getItem ('userId');
             return { ...prev, userId: userId,  accessToken: response }
         });
