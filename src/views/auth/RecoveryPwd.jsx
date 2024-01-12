@@ -30,7 +30,7 @@ function RecoveryPwd() {
             const response = await postRecoveryPwd(email, OTP);
                 localStorage.setItem('rec_email', email);
                 localStorage.setItem('otp', OTP);
-                if(response.message) navigate('./team/insertotp');
+                if(response.message) navigate('./insertotp');
         } catch (error) {
             if (error.response && error.response.status === 409) {
                 showNotification(error.response.data.message, "error");

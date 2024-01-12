@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import LogoMain from '../../assets/LogoMain.jpg'
 import { postRecoveryPwd } from "../../controllers/services.controller";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { showNotification } from "../../components/showNotification";
 
 const InsertOtp = (props) => {
     const [otpInput, setOtpInput] = useState('');
@@ -27,6 +28,10 @@ const InsertOtp = (props) => {
         e.preventDefault();
         if (otpInput === otp) {
             navigate('/newpassword');
+        }
+        else {
+          showNotification("El codi introduït no és correcte", "error");
+          setOtpInput('');
         }
     }
 

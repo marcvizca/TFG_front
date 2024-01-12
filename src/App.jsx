@@ -30,7 +30,7 @@ function App() {
           <Route path='logout' exact element = { <><Header2 /><Signout /></> } />
           <Route path='signup' exact element = { <><Header2 /><Signup /></> } />
           <Route path='recoverypwd' element = { <><Header2 /><RecoveryPwd /></> } />
-          <Route path='insertotp' element = {<><Header2 /><InsertOtp /></>} />
+          <Route path='recoverypwd/insertotp' element = {<><Header2 /><InsertOtp /></>} />
           <Route path='newpassword' element = { <><Header2 /><ResetPwd /></> } />
 
           <Route element={<PersistLogin />} >
