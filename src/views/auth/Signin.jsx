@@ -61,7 +61,7 @@ const Signin = () => {
             } else if (error.response?.status === 401 || error.response?.status === 404) {
                 showNotification('El email o password indicats són incorrectes', 'error');
             } else {
-                showNotification('Login Failed');
+                showNotification("L'inici de sessió ha fallat", "error");
             }
         }
     }
