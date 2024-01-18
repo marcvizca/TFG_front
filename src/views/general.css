@@ -78,3 +78,8 @@
     font-weight: bold !important;
     color: white !important;
 }
+
+.code-text {
+    font-weight: bold;
+    font-size: 40px;
+}

@@ -20,9 +20,9 @@ function Home () {
     if (rpe) {
         await postResult();
         navigate(-1);
-        showNotification("RPE aswered succesfully");
+        showNotification("RPE contestat correctament!");
     }
-    else showNotification("Selecciona una opció", "error"); //modificar per mostrar avis o no deixar clicar
+    else showNotification("Selecciona una opció", "error");
   };
 
   const options = [...Array(10)].map((x, i) => (i + 1));

@@ -3,19 +3,19 @@ import * as AiIcons from 'react-icons/ai';
 
 export const MenuData = [
   {
-    title: 'Teams',
+    title: 'Equips',
     path:'/teams',
     icon:<AiIcons.AiOutlineTeam/>,
     cName:'nav-text'
   },
   {
-    title: 'Profile',
+    title: 'Perfil',
     path: '/profile',
     icon:<AiIcons.AiOutlineProfile/>,
     cName: 'nav-text'
   },
   {
-    title: 'Log out',
+    title: 'Tancar sessió',
     path:'/logout',
     icon:<AiIcons.AiOutlineLogout/>,
     cName:'nav-text'

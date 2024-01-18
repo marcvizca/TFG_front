@@ -70,7 +70,7 @@ function ResetPwd() {
                       required
                       fullWidth
                       id="new_password"
-                      label="New Password"
+                      label="Nova contrasenya"
                       name="New Password"
                       type="password"
                       value={password}
@@ -82,7 +82,7 @@ function ResetPwd() {
                       required
                       fullWidth
                       id="confirm_password"
-                      label="Confirm Password"
+                      label="Confirma la contrasenya"
                       name="Confirm Password"
                       type="password"
                       value={confirmPassword}

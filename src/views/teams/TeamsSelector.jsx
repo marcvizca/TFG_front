@@ -56,7 +56,7 @@ function Teams () {
     <Container component="main" maxWidth="xs">
     <CssBaseline />
     <Grid container spacing={2}>
-    {loading ? (<p> Loading...</p>
+    {loading ? (<p> Carregant...</p>
     ) : teams.length > 0 ? (
     teams.map((team, index) =>  (
       <Grid item xs={6} key={index}>
@@ -73,7 +73,7 @@ function Teams () {
       </Grid>
     ))
     ) : (
-        <p style={{justifyContent:'center', marginTop:'80px'}}>No formas parte de ningún equipo.</p>
+        <p style={{justifyContent:'center', marginTop:'80px'}}>No formas part de cap equip.</p>
     )} 
     </Grid>
     <div className="create-button-container">
@@ -86,7 +86,7 @@ function Teams () {
             sx={{ mt: 3, mb: 2 }}
             className="create-button"
           >
-            Create Team
+            Crear Equip
           </Button>
         </Link>
       </Grid>
@@ -98,7 +98,7 @@ function Teams () {
             sx={{ mt: 3, mb: 2 }}
             className="create-button"
           >
-            Join Team
+            Unir-se a un equip
           </Button>
         </Link>
       </Grid>

@@ -73,7 +73,7 @@ function JoinTeam() {
                 <img src={LogoSample} alt="Logo" />
                 
                 <Typography component="h1" variant="h5">
-                Join Team
+                Unir-se a un equip
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <div style={{display: 'flex', flexDirection:'column', gap: '20px', alignItems: 'center', marginTop: '20px'}}>
@@ -108,7 +108,7 @@ function JoinTeam() {
                             required
                             fullWidth
                             name="posicio"
-                            label="Posicio"
+                            label="Posició"
                             id="posicio"
                             value={playerPosition}
                             onChange={handleChangePosition}
@@ -129,7 +129,7 @@ function JoinTeam() {
                     sx={{ mt: 3, mb: 2, width: 400 }}
                     className="app-button"
                 >
-                    Join Team
+                    Enviar sol·licitud
                 </Button>
                 
                 </Box>

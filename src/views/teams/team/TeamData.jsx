@@ -177,7 +177,7 @@ function TeamData() {
           y: {
             title: {
               display: true,
-              text: 'Monotony Index',
+              text: 'Índex de monotonia',
             },
             beginAtZero: true,
             max: 2.5,
@@ -232,7 +232,7 @@ function TeamData() {
       labels: wellnessInfo.map((item) => ([item.name, item.surname])),
       datasets: [
         {
-          label: 'Media',
+          label: 'Mitja',
           data: wellnessInfo.map((item) => {
             const media =
               (item.sleep + item.stress + item.fatigue + item.pain + item.mood) / 5;
@@ -244,27 +244,27 @@ function TeamData() {
           borderWidth: 2,
         },
         {
-          label: 'Sleep',
+          label: 'Son',
           data: wellnessInfo.map((item) => item.sleep),
           backgroundColor: 'rgba(0, 0, 255, 1)',
         },
         {
-          label: 'Stress',
+          label: 'Estrés',
           data: wellnessInfo.map((item) => item.stress),
           backgroundColor: 'rgba(255, 0, 0, 1)',
         },
         {
-          label: 'Fatigue',
+          label: 'Fatiga',
           data: wellnessInfo.map((item) => item.fatigue),
           backgroundColor: 'rgba(165, 165, 165, 1)',
         },
         {
-          label: 'Pain',
+          label: 'Dolor',
           data: wellnessInfo.map((item) => item.pain),
           backgroundColor: 'rgba(255, 186, 0, 1)',
         },
         {
-          label: 'Mood',
+          label: 'Estat anímic',
           data: wellnessInfo.map((item) => item.mood),
           backgroundColor: 'rgba(60, 179, 113, 1)',
         },
@@ -282,7 +282,7 @@ function TeamData() {
           backgroundColor: 'rgba(255, 165, 0, 0.8)',
         },
         {
-          label: 'Sweet Spot',
+          label: 'Zona òptima',
           data: Array(info.length).fill(1.3),
           type: 'line',
           fill: false,
@@ -309,13 +309,13 @@ function TeamData() {
       labels: mIndex.map((item) => ([item.name, item.surname])),
       datasets: [
         {
-          label: 'This Week',
+          label: 'Aquesta setmana',
           data: mIndex.map((item) => item.MI ),
           borderColor: 'rgb(255,99,132)',
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
         {
-          label: 'Last Week',
+          label: 'Setmana pasada',
           data: lastWeekMIndex.map((item) => item.MI),
           borderColor: 'rgb(0,128,0)',
           backgroundColor: 'rgba(0, 128, 0, 0.5)',
@@ -324,9 +324,9 @@ function TeamData() {
     };
     
     const dateOptions = [
-    { value: format(new Date(), 'yyyy-MM-dd'), label: 'Hoy' },
-    { value: format(subDays(new Date(), 1), 'yyyy-MM-dd'), label: 'Ayer' },
-    { value: format(subDays(new Date(), 2), 'yyyy-MM-dd'), label: 'Hace 2 días' },
+    { value: format(new Date(), 'yyyy-MM-dd'), label: 'Avui' },
+    { value: format(subDays(new Date(), 1), 'yyyy-MM-dd'), label: 'Ahir' },
+    { value: format(subDays(new Date(), 2), 'yyyy-MM-dd'), label: 'Fa 2 dies' },
     ];
 
     return(
@@ -380,18 +380,18 @@ function TeamData() {
           <h2>Acute Chronic Workload Ratio</h2>
           <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
             <div style={{flex: 1, alignItems: 'center'}}>
-              <h3>Actual Week</h3>
+              <h3>Setmana Actual</h3>
               <Bar data={dataRatio(ratioInfo)} options={optionsRatio(ratioInfo)} style={{ width: '600px', height: '400px' }}/>
             </div>
             <div style={{flex: 1}}>
-              <h3>Last Week</h3>
+              <h3>Setmana pasada</h3>
               <Bar data={dataRatio(lastWeekRatio)} options={optionsRatio(lastWeekRatio)} style={{ width: '600px', height: '400px' }}/>
             </div>
           </div>
 
           <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
             <div style={{flex: 1, alignItems: 'center'}}>
-              <h3>Actual Week</h3>
+              <h3>Setmana actual</h3>
               <Line data={dataMI} options={optionsMI} style={{ width: '600px', height: '400px' }}/>
             </div>
           </div>

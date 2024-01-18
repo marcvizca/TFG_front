@@ -17,7 +17,7 @@ import '../general.css'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { showNotification } from "../../components/showNotification";
 
-const options = ["Football", "Field hockey", "Swimming", "Atheltism"];
+const options = ["Futbol", "Hockey herba", "Natació", "Atletisme"];
 
 function CreateTeam() {
   const [teamData, setTeamData] = useState({
@@ -64,7 +64,7 @@ function CreateTeam() {
           <img src={LogoSample} alt="Logo" />
         
         <Typography component="h1" variant="h5">
-          Create Team
+          Crear un equip
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -73,14 +73,14 @@ function CreateTeam() {
                 required
                 fullWidth
                 id="team_name"
-                label="Team name"
+                label="Nom de l'equip"
                 name="team"
                 value={teamData.team}
                 onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor="sport">Sport</InputLabel>
+              <InputLabel htmlFor="sport">Esport</InputLabel>
               <Select
                   required
                   fullWidth
@@ -102,7 +102,7 @@ function CreateTeam() {
             sx={{ mt: 3, mb: 2 }}
             className="app-button"
           >
-            Create Team
+            Crear l'equip
           </Button>
           
         </Box>

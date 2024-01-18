@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import { format, subDays, startOfWeek, endOfWeek, subWeeks } from 'date-fns';
-import { getRpeByUser, getWellnessByUser, exitTeamMember } from "../../../controllers/services.controller.js";
+import { getRpeByUser, getWellnessByUser, exitTeamMember, getInfoProfile } from "../../../controllers/services.controller.js";
 import { Bar } from 'react-chartjs-2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Dialog from '@mui/material/Dialog';
@@ -22,6 +22,7 @@ function UserData() {
     const [rpeInfo, setRpeInfo] = useState();
     const [wellnessInfo, setWellnessInfo] = useState();
     const [openDialog, setOpenDialog] = useState(false);
+    const [playerName, setPlayerName] = useState('');
     const navigate = useNavigate();
 
     //Week RPE
@@ -40,6 +41,14 @@ function UserData() {
         }
         infoWellnessUser();
     }, [selectedDateWellness]);
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const result = await getInfoProfile(playerId);
+            setPlayerName(result.name + ' ' + result.surname);
+        }
+        getUserInfo();
+    }, []);
 
     const handleDateChange = (event) => {
         setSelectedDateRpe(event.target.value.split(','));
@@ -63,7 +72,7 @@ function UserData() {
       navigate(-1);
   }
 
-    const labels = ['Lunes', 'Martes' ,'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const labels = ['Dilluns', 'Dimarts' ,'Dimecres', 'Dijous', 'Divendres', 'Disabte', 'Diumenge'];
 
 
     const rpePorDia = (rpeInfo || []).reduce((acc, item) => {
@@ -92,13 +101,13 @@ function UserData() {
 
 
     const dayOfWeekIndex = {
-        "Lunes": 0,
-        "Martes": 1,
-        "Miércoles": 2,
-        "Jueves": 3,
-        "Viernes": 4,
-        "Sábado": 5,
-        "Domingo": 6,
+        "Dilluns": 0,
+        "Dimarts": 1,
+        "Dimecres": 2,
+        "Dijous": 3,
+        "Divendres": 4,
+        "Disabte": 5,
+        "Diumenge": 6,
     };
       
     let wellnessDay = Array.from({ length: 7 }, () => ({
@@ -144,7 +153,7 @@ function UserData() {
         labels,
         datasets: [
             {
-              label: 'Media',
+              label: 'Mitja',
               data: wellnessDay.map((item) => {
                 const media =
                   (item.sleep + item.stress + item.fatigue + item.pain + item.mood) / 5;
@@ -156,27 +165,27 @@ function UserData() {
               borderWidth: 2,
             },
             {
-              label: 'Sleep',
+              label: 'Son',
               data: wellnessDay.map((item) => item.sleep),
               backgroundColor: 'rgba(0, 0, 255, 1)',
             },
             {
-              label: 'Stress',
+              label: 'Estrés',
               data: wellnessDay.map((item) => item.stress),
               backgroundColor: 'rgba(255, 0, 0, 1)',
             },
             {
-              label: 'Fatigue',
+              label: 'Fatiga',
               data: wellnessDay.map((item) => item.fatigue),
               backgroundColor: 'rgba(165, 165, 165, 1)',
             },
             {
-              label: 'Pain',
+              label: 'Dolor',
               data: wellnessDay.map((item) => item.pain),
               backgroundColor: 'rgba(255, 186, 0, 1)',
             },
             {
-              label: 'Mood',
+              label: 'Estat anímic',
               data: wellnessDay.map((item) => item.mood),
               backgroundColor: 'rgba(60, 179, 113, 1)',
             },
@@ -242,9 +251,9 @@ function UserData() {
         };
 
     const dateOptions = [
-        { value: [format(startOfWeek(new Date(), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(new Date(), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Esta semana' },
-        { value: [format(startOfWeek(subWeeks(new Date(), 1), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(subWeeks(new Date(), 1), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Semana pasada' },
-        { value: [format(startOfWeek(subWeeks(new Date(), 2), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(subWeeks(new Date(), 2), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Hace 2 semanas' },
+        { value: [format(startOfWeek(new Date(), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(new Date(), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Setmana actual' },
+        { value: [format(startOfWeek(subWeeks(new Date(), 1), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(subWeeks(new Date(), 1), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Setmana pasada' },
+        { value: [format(startOfWeek(subWeeks(new Date(), 2), {weekStartsOn: 1}), 'yyyy-MM-dd'), format(endOfWeek(subWeeks(new Date(), 2), {weekStartsOn: 1}), 'yyyy-MM-dd')], label: 'Fa 2 setmanes' },
         ];
 
     return(
@@ -252,10 +261,10 @@ function UserData() {
             <CssBaseline />
             <AiOutlineArrowLeft onClick={() => navigate(-1)} style={{ cursor: 'pointer', marginTop: '10px', marginLeft:'10px', fontSize: '24px' }} />
             <div style={{display: 'flex', flexDirection:'column', gap: '20px', alignItems: 'center', marginTop: '20px'}}>
-            <h2>UserData</h2>
+            <h2>Dades {playerName}</h2>
                 <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
                     <div style={{flex: 1}}>
-                        <h3>Week RPE</h3>
+                        <h3>RPE</h3>
                         <select id="dateSelect" value={selectedDateRpe} onChange={handleDateChange}>
                             {dateOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -267,7 +276,7 @@ function UserData() {
                     </div>
 
                     <div style={{flex: 1}}>
-                        <h3>Week Wellness</h3>
+                        <h3>Wellness</h3>
                         <select id="dateSelect" value={selectedDateWellness} onChange={handleWellnessDateChange}>
                             {dateOptions.map((option) => (
                                 <option key={option.value} value={option.value}>

@@ -83,7 +83,7 @@ const Signup = () => {
                       required
                       fullWidth
                       id="password"
-                      label="Password"
+                      label="Contrasenya"
                       name="password"
                       type="password"
                       value={userData.password}
@@ -95,7 +95,7 @@ const Signup = () => {
                       required
                       fullWidth
                       id="name"
-                      label="Name"
+                      label="Nom"
                       name="name"
                       value={userData.name}
                       onChange={handleChange}
@@ -106,7 +106,7 @@ const Signup = () => {
                       required
                       fullWidth
                       id="surname"
-                      label="Surname"
+                      label="Cognom"
                       name="surname"
                       value={userData.surname}
                       onChange={handleChange}
@@ -120,7 +120,7 @@ const Signup = () => {
                   sx={{ mt: 3, mb: 2 }}
                   className="app-button"
               >
-                  Sign up
+                  Registrar-se
               </Button>
 
               <Button
@@ -130,7 +130,7 @@ const Signup = () => {
                   className="app-button"
                   onClick={handleSignInClick}
               >
-                  Already registered? Sign in
+                  Ja tens compte? Inicia Sessió
               </Button>
               
               </Box>

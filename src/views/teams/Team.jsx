@@ -358,12 +358,12 @@ function Team() {
             <div style={{display:'flex'}}>
                 <div style={{alignItems: 'center', marginTop:'30px', justifyContent:'center', marginLeft:'auto'}}>
                     <div style={{backgroundColor: '#f0f0f0', padding: '16px', borderRadius: '4px'}}>
-                        <h2>Registrar minutos de entreno</h2>
-                        <label>Registra los minutos de entreno por dia del equipo para poder generar más datos</label>
+                        <h2>Registrar minuts d'entrenament</h2>
+                        <label>Registra els minuts d'entrenament per dia de l'equip per poder generar més dades</label>
                         <div style={{marginTop:'10px'}}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DesktopDatePicker
-                                label="Selecciona una fecha"
+                                label="Selecciona una data"
                                 value={selectedDate}
                                 onChange={handleDateChange}
                                 sx={{
@@ -387,7 +387,7 @@ function Team() {
                             <TextField
                                 fullWidth
                                 type="number"
-                                label="Minutos entrenados"
+                                label="Minuts entrenats"
                                 value={minuts}
                                 onChange={(e) => setMinuts(e.target.value)}
                                 sx={{
@@ -424,14 +424,23 @@ function Team() {
                                 sx={{ mt: 3, mb: 2 }}
                                 className="data-button"
                             >
-                                Go to Team Data
+                                Veure les dades de l'equip
                             </Button>
                         </Link>
                     </div>
                 </div>
                 <div style={{ justifyContent:'flex-end', marginLeft: 'auto'}}>
+                        <div style={{ overflowY: 'auto', backgroundColor: 'lightgrey', marginLeft: 'auto'}}>
+                            <div style={{marginLeft: '3px'}}>
+                            <h3>Codi de l'equip:</h3>
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <text className="code-text">{teamId}</text>
+                            </div>
+                            <text>Comparteix-lo!!</text>
+                            </div>
+                        </div>
                         <div style={{width:'fit-content', overflowY: 'auto', backgroundColor: 'rgb(252, 193, 84)', marginLeft: 'auto'}}>
-                            <h4>Solicitudes Pendientes:</h4>
+                            <h4>Sol·licituds Pendents:</h4>
                             {membersPendents.length > 0 ? ( 
                         <ul style={{ listStyleType: 'none', padding: 5 }}>
                             {membersPendents.map((member) => (
@@ -449,7 +458,7 @@ function Team() {
                             </li>
                             ))}
                         </ul>
-                        ):(<text>No hay solicitudes pendientes</text>)}
+                        ):(<text>No hi ha sol·licituds pendents</text>)}
                         </div>
                 </div>
             </div>
@@ -485,12 +494,12 @@ function Team() {
                 </div>
                 <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
                     <div style={{flex: 1}}>
-                        <h3>Week RPE</h3>
+                        <h3>RPE de la setmana</h3>
                         <Bar data={data} options={options} style={{ width: '600px', height: '400px' }}/>
                     </div>
 
                     <div style={{flex: 1}}>
-                        <h3>Week Wellness</h3>
+                        <h3>Wellness de la setmana</h3>
                         <Bar data={wellnessData} options={wellnessOptions} style={{ width: '600px', height: '400px' }}/>
                     </div>
                 </div>
@@ -504,11 +513,11 @@ function Team() {
                     <DialogTitle>Sortir de l'equip</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Segur que vols sortir del equip?
+                            Segur que vols sortir de l'equip?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleCloseDialog}>Cancelar</Button>
+                        <Button onClick={handleCloseDialog}>Cancel·lar</Button>
                         <Button onClick={handleAcceptDialog} color="primary">
                             Confirmar
                         </Button>
@@ -520,17 +529,17 @@ function Team() {
         ):(
                 
             <div style={{display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: 'center'}}>
-                <h1>Unauthorized</h1>
+                <h1>No autoritzat</h1>
                 <br />
-                <p>You do not have access to the requested page.</p>
+                <p>No tens accés a aquesta pàgina.</p>
                 <div style={{flexGrow: '1', display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
-                    <button onClick={handleGoBack}>Go Back</button>
+                    <button onClick={handleGoBack}>Tornar</button>
                 </div>
             </div>
                
         )}
         </div>
-        ):(<p style={{display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: 'center'}}>Loading...</p>)}
+        ):(<p style={{display: 'flex', flexDirection: 'column',justifyContent: 'center', alignItems: 'center'}}>Carregant...</p>)}
         </div>
         
     )

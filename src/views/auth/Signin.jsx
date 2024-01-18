@@ -59,7 +59,7 @@ const Signin = () => {
             } else if (error.response?.status === 400) {
                 showNotification('Falta algun camp per completar', 'error');
             } else if (error.response?.status === 401 || error.response?.status === 404) {
-                showNotification('El email o password indicats són incorrectes', 'error');
+                showNotification('El email o contrasenya indicats són incorrectes', 'error');
             } else {
                 showNotification("L'inici de sessió ha fallat", "error");
             }
@@ -106,7 +106,7 @@ const Signin = () => {
                         required
                         fullWidth
                         id="password"
-                        label="Password"
+                        label="Contrasenya"
                         name="password"
                         type="password"
                         value={userData.password}
@@ -128,7 +128,7 @@ const Signin = () => {
                     sx={{ mt: 3, mb: 2 }}
                     className="app-button"
                 >
-                    Log In
+                    Iniciar Sessió
                 </Button>
 
                 <Button
@@ -138,7 +138,7 @@ const Signin = () => {
                     className="app-button"
                     onClick={handleSignUpClick}
                 >
-                    Create Account
+                    Registra't
                 </Button>
                 
                 </Box>
