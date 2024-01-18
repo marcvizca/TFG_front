@@ -430,6 +430,16 @@ function Team() {
                     </div>
                 </div>
                 <div style={{ justifyContent:'flex-end', marginLeft: 'auto'}}>
+                        <div style={{ overflowY: 'auto', backgroundColor: 'lightgrey', marginLeft: 'auto'}}>
+                            <div style={{marginLeft: '3px'}}>
+                            <h3>Codi de l'equip:</h3>
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <text className="code-text">{teamId}</text>
+                            </div>
+                            <text>Comparteix-lo!!</text>
+                            </div>
+
+                        </div>
                         <div style={{width:'fit-content', overflowY: 'auto', backgroundColor: 'rgb(252, 193, 84)', marginLeft: 'auto'}}>
                             <h4>Solicitudes Pendientes:</h4>
                             {membersPendents.length > 0 ? ( 
