@@ -24,7 +24,7 @@ function Home () {
     if(currentAnswer) {
       await postAnswers();
       navigate(-1);
-      showNotification("Wellness answered succesfully");
+      showNotification("Wellness contestat correctament");
     }
     else showNotification("Selecciona una opció", "error");
   };

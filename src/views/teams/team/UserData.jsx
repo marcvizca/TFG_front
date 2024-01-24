@@ -156,27 +156,27 @@ function UserData() {
               borderWidth: 2,
             },
             {
-              label: 'Sleep',
+              label: 'Son',
               data: wellnessDay.map((item) => item.sleep),
               backgroundColor: 'rgba(0, 0, 255, 1)',
             },
             {
-              label: 'Stress',
+              label: 'Estrés',
               data: wellnessDay.map((item) => item.stress),
               backgroundColor: 'rgba(255, 0, 0, 1)',
             },
             {
-              label: 'Fatigue',
+              label: 'Fatiga',
               data: wellnessDay.map((item) => item.fatigue),
               backgroundColor: 'rgba(165, 165, 165, 1)',
             },
             {
-              label: 'Pain',
+              label: 'Dolor',
               data: wellnessDay.map((item) => item.pain),
               backgroundColor: 'rgba(255, 186, 0, 1)',
             },
             {
-              label: 'Mood',
+              label: 'Estat anímic',
               data: wellnessDay.map((item) => item.mood),
               backgroundColor: 'rgba(60, 179, 113, 1)',
             },
